@@ -1,0 +1,68 @@
+import com.dadapush.gradle.DaDaPushTask
+
+//plugins {
+//  id "com.dadapush.gradle" version "1.0.0"
+//}
+group 'com.dadapush'
+version '1.0.0'
+
+apply plugin: 'java'
+
+apply plugin: 'com.dadapush.gradle'
+
+buildscript {
+  repositories {
+    // before run this example, your should install gradle-dadapush-plugin to your maven local
+    mavenLocal()
+
+    dependencies {
+      classpath 'com.dadapush:gradle-dadapush-plugin:1.0.0'
+    }
+  }
+}
+
+dadapush {
+  channelToken "YOUR_CHANNEL_TOKEN"
+  title "${project.name}"
+  content "project: ${project.name}\n" +
+          "version: ${project.version}\n" +
+          "gradleVersion: ${project.gradle.gradleVersion}\n" +
+          "buildDir: ${project.buildDir}\n"
+  failOnError false
+}
+
+println 'This is executed during the configuration phase.'
+
+
+task dadapushSend(type: DaDaPushTask) {
+  title "assemble success"
+}
+
+tasks.assemble.doLast() {
+  dadapushSend.execute()
+}
+
+task dadapushSendForBuild(type: DaDaPushTask) {
+  title "build success"
+  channelToken "YOUR_CHANNEL_TOKEN"
+  content "project: ${project.name}\n" +
+          "version: ${project.version}\n" +
+          "gradleVersion: ${project.gradle.gradleVersion}\n" +
+          "buildDir: ${project.buildDir}\n"
+}
+
+tasks.build.doLast() {
+  dadapushSendForBuild.execute()
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+  mavenCentral()
+  mavenLocal()
+}
+
+
+dependencies {
+  testCompile group: 'junit', name: 'junit', version: '4.12'
+}
