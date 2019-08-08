@@ -1,7 +1,7 @@
 # Gradle DaDaPush Notification Plugin
 
 ```groovy
-import com.dadapush.gradle.DaDaPushTask
+import com.dadapush.client.gradle.DaDaPushTask
 
 plugins {
   id "com.dadapush.gradle" version "1.0.0"

@@ -1,13 +1,16 @@
 plugins {
   id 'java-gradle-plugin'
   id 'groovy'
+  id 'maven-publish'
+  id 'java-library'
 }
 
-group 'com.dadapush'
+group 'com.dadapush.client'
 version '1.0.0'
 
 apply plugin: 'java'
 apply plugin: "maven"
+apply plugin: 'signing'
 
 sourceCompatibility = 1.8
 
@@ -26,7 +29,143 @@ gradlePlugin {
   plugins {
     simplePlugin {
       id = 'com.dadapush.gradle'
-      implementationClass = 'com.dadapush.gradle.DaDaPushPlugin'
+      implementationClass = 'com.dadapush.client.gradle.DaDaPushPlugin'
     }
   }
 }
+
+test {
+  // show standard out and standard error of the test JVM(s) on the console
+  testLogging.showStandardStreams = true
+}
+
+//task sourceJar(type: Jar) {
+//  classifier "sources"
+//  from sourceSets.main.allJava
+//}
+//
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//  classifier "javadoc"
+//  from javadoc.destinationDir
+//}
+//
+//artifacts {
+//  archives jar
+//  archives sourceJar
+//  archives javadocJar
+//}
+//
+//signing {
+//  sign configurations.archives
+//}
+
+
+//publishing {
+//  publications {
+//    mavenJava(MavenPublication) {
+//      customizePom(pom)
+//      groupId 'com.dadapush.client'
+//      artifactId 'dadapush-gradle-plugin'
+//      version ${project.version}
+//      from components.java
+//      // create the sign pom artifact
+//      pom.withXml {
+//        def pomFile = file("${project.buildDir}/generated-pom.xml")
+//        writeTo(pomFile)
+//        def pomAscFile = signing.sign(pomFile).signatureFiles[0]
+//        artifact(pomAscFile) {
+//          classifier = null
+//          extension = 'pom.asc'
+//        }
+//      }
+//
+//      artifact(sourceJar) {
+//        classifier = 'sources'
+//      }
+//      artifact(javadocJar) {
+//        classifier = 'javadoc'
+//      }
+//
+//      // create the signed artifacts
+//      project.tasks.signArchives.signatureFiles.each {
+//        artifact(it) {
+//          def matcher = it.file =~ /-(sources|javadoc)\.jar\.asc$/
+//          if (matcher.find()) {
+//            classifier = matcher.group(1)
+//          } else {
+//            classifier = null
+//          }
+//          extension = 'jar.asc'
+//        }
+//      }
+//
+//      repositories {
+//        maven {
+//          url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+////          credentials {
+////            username sonatypeUsername
+////            password sonatypePassword
+////          }
+//        }
+//      }
+//
+//    }
+//  }
+//}
+//
+//def customizePom(pom) {
+//  pom.withXml {
+//    def root = asNode()
+//
+//    // eliminate test-scoped dependencies (no need in maven central POMs)
+//    root.dependencies.removeAll { dep ->
+//      dep.scope == "test"
+//    }
+//
+//    // add all items necessary for maven central publication
+//    root.children().last() + {
+//      resolveStrategy = Closure.DELEGATE_FIRST
+//
+//      description 'a gradle plugin for sending notification via DaDaPush'
+//      name 'Gradle DaDaPush Notification Plugin'
+//      url 'https://github.com/dadapush/gradle-dadapush-notification-plugin'
+//      organization {
+//        name "www.dadapush.com"
+//        url "https://www.dadapush.com"
+//      }
+//      licenses {
+//        license {
+//          name 'Apache License 2.0'
+//          url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//          distribution 'repo'
+//        }
+//      }
+//      scm {
+//        connection = 'scm:git:git@github.com:dadapush/gradle-dadapush-notification-plugin.git'
+//        developerConnection = 'scm:git:git@github.com:dadapush/gradle-dadapush-notification-plugin.git'
+//        url = 'https://github.com/dadapush/gradle-dadapush-notification-plugin'
+//      }
+//      developers {
+//        developer {
+//          id = 'dadapush'
+//          name = 'DaDaPush'
+//          email = 'contacts@dadapush.com'
+//          organization = "www.dadapush.com"
+//          organizationUrl = "https://www.dadapush.com"
+//        }
+//      }
+//    }
+//  }
+//}
+//
+//model {
+//  tasks.generatePomFileForMavenJavaPublication {
+//    destination = file("$buildDir/generated-pom.xml")
+//  }
+//  tasks.publishMavenJavaPublicationToMavenLocal {
+//    dependsOn project.tasks.signArchives
+//  }
+//  tasks.publishMavenJavaPublicationToMavenRepository {
+//    dependsOn project.tasks.signArchives
+//  }
+//}

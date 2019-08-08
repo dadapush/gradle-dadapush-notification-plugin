@@ -1,4 +1,4 @@
-package com.dadapush.gradle;
+package com.dadapush.client.gradle;
 
 import com.dadapush.client.ApiClient;
 import com.dadapush.client.ApiException;

@@ -1,4 +1,4 @@
-package com.dadapush.gradle;
+package com.dadapush.client.gradle;
 
 @SuppressWarnings("unused")
 public class DaDaPushPluginExtension {

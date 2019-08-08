@@ -1,4 +1,4 @@
-package com.dadapush.gradle;
+package com.dadapush.client.gradle;
 
 import static org.junit.Assert.*;
 
