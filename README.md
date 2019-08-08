@@ -84,3 +84,7 @@ close staging and release
 ```
 ./gradlew closeAndReleaseRepository
 ```
+upload gradle plugin repo
+```
+./gradlew publishPlugins
+```

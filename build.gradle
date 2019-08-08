@@ -11,6 +11,7 @@ buildscript {
 }
 
 plugins {
+  id "com.gradle.plugin-publish" version "0.10.1"
   id 'java-gradle-plugin'
   id 'groovy'
   id 'maven-publish'
@@ -42,9 +43,23 @@ dependencies {
 
 gradlePlugin {
   plugins {
-    simplePlugin {
+    dadapushPlugin {
       id = 'com.dadapush.gradle'
       implementationClass = 'com.dadapush.client.gradle.DaDaPushPlugin'
+    }
+  }
+}
+
+pluginBundle {
+  website = 'https://www.dadapush.com/'
+  vcsUrl = 'https://github.com/dadapush/gradle-dadapush-notification-plugin'
+  description = 'a gradle plugin for sending notification via DaDaPush'
+  tags = ['notification']
+
+  plugins {
+    dadapushPlugin {
+      id = 'com.dadapush.gradle'
+      displayName = 'Gradle DaDaPush Notification Plugin'
     }
   }
 }
