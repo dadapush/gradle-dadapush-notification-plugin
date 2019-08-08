@@ -61,3 +61,26 @@ tasks.build.doLast() {
   dadapushSendForBuild.execute()
 }
 ```
+
+## developer guide
+build
+
+```
+./gradlew build
+```
+install to local maven repository
+
+```
+./gradlew build
+```
+upload to oss maven repository
+
+```
+./gradlew uploadArchives
+```
+
+close staging and release
+
+```
+./gradlew closeAndReleaseRepository
+```
